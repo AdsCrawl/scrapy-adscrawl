@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scrapy-adscrawl"
+version = "0.1.0"
+description = "Opt-in Scrapy downloader middleware for AdsCrawl rendered HTML"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "AdsCrawl" }]
+keywords = ["scrapy", "browser-rendering", "web-scraping", "adscrawl"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Framework :: Scrapy",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Internet :: WWW/HTTP :: Browsers",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = ["Scrapy>=2.20,<3"]
+
+[project.optional-dependencies]
+test = [
+  "build>=1.2,<2",
+  "pytest>=8,<10",
+  "pytest-asyncio>=1,<2",
+  "pytest-socket>=0.7,<1",
+]
+lint = ["ruff>=0.12,<1"]
+
+[project.urls]
+Documentation = "https://docs.adscrawl.net/api-reference/html"
+Repository = "https://github.com/AdsCrawl/scrapy-adscrawl"
+Issues = "https://github.com/AdsCrawl/scrapy-adscrawl/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
