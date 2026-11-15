@@ -75,7 +75,7 @@ See the [AdsCrawl HTML API documentation](https://docs.adscrawl.net/api-referenc
 
 ## Tests
 
-The test suite mocks Scrapy's engine and disables network sockets; it does not use an AdsCrawl API key or visit target sites.
+The suite includes isolated middleware unit tests and an integration test using Scrapy's real crawler/engine with fake HTTP download handlers. Network sockets are disabled (local Unix sockets are allowed for asyncio). It does not use a real AdsCrawl API key or visit AdsCrawl or target sites; this is not a production end-to-end service test.
 
 ```bash
 python -m pip install -e ".[test,lint]"
