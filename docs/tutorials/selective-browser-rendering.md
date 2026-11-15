@@ -75,6 +75,8 @@ This adapter sends a `POST https://api.adscrawl.net/html` with `contentMode: "ht
 
 The adapter's `selector` option waits for the first matching element and, in HTML mode, returns only that element's HTML. That is useful when you want one section, but a selector such as `.quote` would return a single quote card—not every card on the page. This spider omits `selector` so its callback can parse the full rendered document. [AdsCrawl HTML API: `selector`](https://docs.adscrawl.net/api-reference/html)
 
+Why HTML here? Quote cards and pagination depend on DOM structure. The service also offers readable Markdown and article JSON through Readability, which are better suited to article ingestion. Article JSON contains fields such as title and text content; it is not arbitrary user-defined JSON Schema extraction. This adapter deliberately requests HTML only and leaves item construction to Scrapy selectors. [AdsCrawl output formats](https://docs.adscrawl.net/api-reference/html)
+
 ## 4. Parse with ordinary Scrapy selectors
 
 Once the browser-rendered HTML arrives, the callback is still regular Scrapy code:
@@ -89,7 +91,7 @@ for quote in response.css(".quote"):
     }
 ```
 
-The example follows the `li.next` link and explicitly adds the same opt-in metadata to each page. That matters: pagination should not silently switch back to the ordinary downloader or render every request in an unrelated crawl.
+The example follows the `li.next` link and explicitly adds the same opt-in metadata to each page. A hard limit of **two pages** prevents a broken or changing next-page link from consuming credits indefinitely; this is a bounded demo, not a full-site crawl. That matters: pagination should not silently switch back to the ordinary downloader or render every request in an unrelated crawl.
 
 Run the spider and write newline-delimited JSON:
 
