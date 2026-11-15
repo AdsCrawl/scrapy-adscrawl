@@ -73,6 +73,10 @@ Scrapy's robots middleware runs before this adapter at the recommended priority;
 
 See the [AdsCrawl HTML API documentation](https://docs.adscrawl.net/api-reference/html) for the full service contract and pricing/credit details.
 
+## Tutorial
+
+See [Render only the JavaScript-heavy pages in a Scrapy crawl](docs/tutorials/selective-browser-rendering.md) for a step-by-step guide, a runnable [Quotes to Scrape spider](examples/quotes_js_spider.py), and offline tests. The tutorial starts by checking whether Scrapy can use the site's data source directly, then opts selected requests into rendered HTML only when that is useful.
+
 ## Tests
 
 The suite includes isolated middleware unit tests and an integration test using Scrapy's real crawler/engine with fake HTTP download handlers. Network sockets are disabled (local Unix sockets are allowed for asyncio). It does not use a real AdsCrawl API key or visit AdsCrawl or target sites; this is not a production end-to-end service test.
